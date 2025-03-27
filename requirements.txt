@@ -3,3 +3,4 @@ networkx
 pyvis
 pyyaml
 tqdm
+google-generativeai
