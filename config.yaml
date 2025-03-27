@@ -1,0 +1,68 @@
+ast_input_directory: "ast"
+output_directory: "output"
+source_code_root_prefix: "src/" 
+
+llm_config:
+  enabled: true # Set to false to skip LLM summaries
+  api_key: "AIzaSyBaOXYY33QQcedJgAX_2KnpCPEVx8T4tTQ"
+  model_name: "gemini-2" # Or another suitable Gemini model
+  rate_limit_delay: 2 # Seconds between LLM calls (adjust based on API limits)
+  max_retries: 3
+  # Optional: Define specific prompts
+  prompts:
+    entity_summary: |
+      Analyze the following code entity details:
+      - Kind: {entity_kind}
+      - Name: {entity_name}
+      - File: {file_path}
+      - Decorators: {decorators_str}
+      - Dependencies (Injected): {dependencies_str}
+      - Methods: {methods_str}
+
+      Provide a concise, one-sentence summary of the primary responsibility or role of this {entity_kind}.
+      Focus on its core function within the system based *only* on the provided details.
+      Summary:
+    method_summary: |
+      Analyze the following method details:
+      - Method Name: {method_name}
+      - Belongs to: {parent_name} ({parent_kind})
+      - File: {file_path}
+      - Signature: {signature_str}
+      - Decorators: {decorators_str}
+      - Key Calls Made (simplified): {calls_str}
+
+      Provide a concise, one-sentence summary of the main action performed by this method.
+      Focus on its core action based *only* on the provided details.
+      Summary:
+
+
+# --- Graph Visualization Configuration ---
+graph_config:
+  output_filename: "codebase_graph.html"
+  visualization_library: "pyvis" # Currently only pyvis is implemented
+  # Pyvis specific options (optional)
+  pyvis_options: |
+    {
+      "physics": {
+        "solver": "forceAtlas2Based",
+        "forceAtlas2Based": {
+          "gravitationalConstant": -80,
+          "centralGravity": 0.015,
+          "springLength": 100,
+          "springConstant": 0.08,
+          "damping": 0.6
+        },
+        "minVelocity": 0.75
+      },
+      "nodes": {
+        "font": {
+          "size": 10
+        }
+      },
+      "edges": {
+        "smooth": {
+           "enabled": true,
+           "type": "dynamic"
+         }
+      }
+    }
