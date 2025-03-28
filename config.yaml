@@ -4,7 +4,6 @@ source_code_root_prefix: "src/"
 
 llm_config:
   enabled: true # Set to false to skip LLM summaries
-  api_key: "AIzaSyBaOXYY33QQcedJgAX_2KnpCPEVx8T4tTQ"
   model_name: "gemini-2" # Or another suitable Gemini model
   rate_limit_delay: 2 # Seconds between LLM calls (adjust based on API limits)
   max_retries: 3
